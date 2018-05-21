@@ -1,21 +1,21 @@
-import {Controller,Injectable} from '@nestjs/common';
+import {Controller, Injectable} from '@nestjs/common';
 
 @Controller()
 @Injectable()
 export class UsuarioService {
-    usuarios: Usuario[] = [];
+    private usuarios: Usuario[] = [];
 
     crearUsuario(usuario: Usuario): Usuario[] {
-        this.usuarios.push(usuario)
+        this.usuarios.push(usuario);
         return this.usuarios;
     }
 
-    mostrarUusuarios(): Usuario[] {
+    mostrarUsuarios(): Usuario[] {
         return this.usuarios;
     }
 }
 export interface Usuario{
-        nombre:String;
-        apellido:String;
-        edad:Number;
+        nombre: string;
+        apellido: string;
+        edad: number;
 }
