@@ -1,11 +1,13 @@
-import {Body, Controller, Get, HttpCode, Post, Req, Res} from '@nestjs/common';
+import {Body, Controller, Get, Guard, HttpCode, Post, Req, Res, UseGuards} from '@nestjs/common';
 import Status = jest.Status;
 import {UsuarioService} from './usuario.service';
 import {UsuarioPipe} from './pipes/usuario.pipe';
 import {UsuarioEsquema} from './usuario/usuario.schema';
+import {CrearUsuarioGuards} from './guards/crear_usuario.guards';
 
 // decorator
 @Controller('Usuario')
+@UseGuards(CrearUsuarioGuards)
 export class UsuarioController {
     usuario = {
         nombre: 'Wilson',
