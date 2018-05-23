@@ -1,6 +1,8 @@
-import {Controller, Get, HttpCode, Post, Req, Res} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, Post, Req, Res} from '@nestjs/common';
 import Status = jest.Status;
 import {UsuarioService} from './usuario.service';
+import {UsuarioPipe} from './pipes/usuario.pipe';
+import {UsuarioEsquema} from './usuario/usuario.schema';
 
 // decorator
 @Controller('Usuario')
@@ -47,5 +49,13 @@ export class UsuarioController {
         return response
             .status(201)
             .send(nuevoUsuario);
+    }
+
+    @Post('crearUsuario1')
+    crearUsuario1(
+        @Body(new  UsuarioPipe(UsuarioEsquema)) nuevoUsuario)
+    {
+        const usuarioCreado = this._usuarioService.crearUsuario(nuevoUsuario);
+        return nuevoUsuario;
     }
 }

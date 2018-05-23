@@ -9,6 +9,6 @@ export class UsuarioEntity {
     nombre: string;
 
     @OneToMany(
-        type => FotoEntity, fotoEntity => fotoEntity.usuarioId)
+        type => FotoEntity, fotoEntity => fotoEntity.usuario)
     fotos: FotoEntity[];
 }
