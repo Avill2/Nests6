@@ -6,6 +6,8 @@ import {UsuarioService} from './usuario.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {UsuarioEntity} from './usuario/usuario.entity';
 import {FotoEntity} from "./fotos/foto.entity";
+import {JwtService} from "./servicios/jwt.service";
+import {AuthController} from "./auth/auth.controller";
 @Module({
   imports: [TypeOrmModule.forRoot({
       type: 'mysql',
@@ -22,7 +24,7 @@ import {FotoEntity} from "./fotos/foto.entity";
       FotoEntity,
   ],
   controllers: [AppController,
-      ParametrosController],
-  providers: [AppService, UsuarioService],
+      ParametrosController, AuthController],
+  providers: [AppService, UsuarioService, JwtService],
 })
 export class AppModule {}
