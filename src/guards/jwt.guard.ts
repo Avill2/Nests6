@@ -7,19 +7,35 @@ import {JwtService} from '../servicios/jwt.service';
 export class JwtGuard implements CanActivate{
     constructor(
         private readonly reflector: Reflector,
-        private  readonluy _jwtService: JwtService
-)
-canActivate(context: ExecutionContext): boolean |Promise<boolean> | Observable<boolean>{
-        const request = context.switchToHttp().getRequest();
-        const jwt = request.headers.authentication;
-        if (jwt){
-            this._jwtService.verificarToken(jwt,(error,data)=>{
-                return error? false: true;
-            });
+        private  readonly _jwtService: JwtService
+){}
+canActivate(context: ExecutionContext): boolean |Promise<boolean> | Observable<boolean> {
 
-        }else{
-            return false;
+    const necesitaProteccion = this.reflector.get("necesita proteccion", context.getHandler());
+
+    console.log('necesitaProteccion', necesitaProteccion);
+    //const request = context.switchToHttp().getRequest();
+    //const jwt = request.headers.authentication;
+    if (necesitaProteccion) {
+        const request = context
+            .switchToHttp()
+            .getRequest();
+
+        const jwt = request.headers.auth;
+        console.log('jwt', jwt);
+
+        if (jwt) {
+            this._jwtService
+                .verificarTokenSync(
+                    jwt);
+            //(error, data) => {
+            //   if (error) {
+            //      return false;
+        } else {
+            return true;
         }
-
+    } else {
+        return true
+    }
 }
 }

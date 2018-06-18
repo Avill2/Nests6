@@ -8,6 +8,7 @@ import {UsuarioEntity} from './usuario/usuario.entity';
 import {FotoEntity} from "./fotos/foto.entity";
 import {JwtService} from "./servicios/jwt.service";
 import {AuthController} from "./auth/auth.controller";
+import {JwtGuard} from "./guards/jwt.guard";
 @Module({
   imports: [TypeOrmModule.forRoot({
       type: 'mysql',
@@ -25,6 +26,6 @@ import {AuthController} from "./auth/auth.controller";
   ],
   controllers: [AppController,
       ParametrosController, AuthController],
-  providers: [AppService, UsuarioService, JwtService],
+  providers: [AppService, UsuarioService, JwtService, JwtGuard],
 })
 export class AppModule {}
